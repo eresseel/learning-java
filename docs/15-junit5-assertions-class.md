@@ -1,3 +1,7 @@
+[← Előző: 14-selenium-extra.md](14-selenium-extra.md)
+
+---
+
 # `org.junit.jupiter.api.Assertions` – osztályszintű használat
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html>
@@ -89,4 +93,3 @@ Teszt,Elek
 | Módosítás | Kód szerkesztése kell | Csak a fájlt kell módosítani |
 | Sok adatsor | Nehézkes | Jól skálázódik |
 | Megosztás | A kóddal együtt | Fájlként önállóan is átadható |
-

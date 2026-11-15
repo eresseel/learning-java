@@ -1,3 +1,7 @@
+[← Előző: 05-selenium-core.md](05-selenium-core.md)
+
+---
+
 # Selenium – várakozások
 
 **Dokumentáció:** <https://www.selenium.dev/documentation/webdriver/waits/>
@@ -39,3 +43,6 @@ Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 
 Az implicit várakozás (`driver.manage().timeouts().implicitlyWait(...)`) globálisan, minden `findElement()` hívásra érvényes, és keveredik az explicit várakozással. Ez nehezen kiszámítható várakozási időket okoz – különösen, ha azt ellenőrzöd, hogy egy elem **nincs** jelen, mert ilyenkor az összes időt kivárja. Ehelyett mindig explicit várakozást érdemes használni a Page Object-ekben.
 
+---
+
+[ Következő: 07-selenium-advanced.md → ](07-selenium-advanced.md)

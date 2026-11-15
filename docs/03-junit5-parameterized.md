@@ -1,3 +1,7 @@
+[← Előző: 02-junit5-assertions.md](02-junit5-assertions.md)
+
+---
+
 # JUnit 5 paraméterezett tesztek
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests>
@@ -49,3 +53,6 @@ void shouldMapPostToUser(int postId, int expectedUserId) {
 }
 ```
 
+---
+
+[ Következő: 04-junit5-extensions.md → ](04-junit5-extensions.md)

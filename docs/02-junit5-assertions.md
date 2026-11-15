@@ -1,3 +1,7 @@
+[← Előző: 01-junit5-annotations.md](01-junit5-annotations.md)
+
+---
+
 # JUnit 5 assertions (ellenőrzések)
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html>
@@ -91,3 +95,6 @@ void shouldRejectBlankValue() {
 }
 ```
 
+---
+
+[ Következő: 03-junit5-parameterized.md → ](03-junit5-parameterized.md)

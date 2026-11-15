@@ -1,3 +1,7 @@
+[← Előző: 11-wiremock.md](11-wiremock.md)
+
+---
+
 # Párhuzamos futtatás és `ThreadLocal`
 
 **JUnit 5 párhuzamosság:** <https://junit.org/junit5/docs/current/user-guide/#writing-tests-parallel-execution>  
@@ -68,3 +72,6 @@ class SequentialTest {
 }
 ```
 
+---
+
+[ Következő: 13-webdrivermanager.md → ](13-webdrivermanager.md)

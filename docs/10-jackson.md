@@ -1,3 +1,7 @@
+[← Előző: 09-hamcrest.md](09-hamcrest.md)
+
+---
+
 # Jackson – JSON ↔ Java átalakítás
 
 **Dokumentáció:** <https://github.com/FasterXML/jackson-databind/wiki>  
@@ -76,3 +80,6 @@ public record Post(Integer userId, Integer id, String title, String body) {
 }
 ```
 
+---
+
+[ Következő: 11-wiremock.md → ](11-wiremock.md)

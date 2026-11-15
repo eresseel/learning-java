@@ -1,3 +1,7 @@
+[← Előző: 10-jackson.md](10-jackson.md)
+
+---
+
 # WireMock – HTTP mock szerver
 
 **Dokumentáció:** <https://wiremock.org/docs/>  
@@ -86,3 +90,6 @@ wireMock.verify(moreThanOrExactly(1), getRequestedFor(urlEqualTo("/posts/1")));
 wireMock.verify(0, getRequestedFor(urlEqualTo("/posts/42")));
 ```
 
+---
+
+[ Következő: 12-parallel-threadlocal.md → ](12-parallel-threadlocal.md)

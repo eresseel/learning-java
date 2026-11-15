@@ -1,3 +1,7 @@
+[← Előző: 00-index.md](00-index.md)
+
+---
+
 # JUnit 5 annotációk
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/user-guide/>
@@ -183,3 +187,6 @@ class DemoFailureTest {
 }
 ```
 
+---
+
+[ Következő: 02-junit5-assertions.md → ](02-junit5-assertions.md)

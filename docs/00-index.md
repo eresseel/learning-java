@@ -36,3 +36,6 @@ A két projektben (`java17-selenium-learning` és `orangehrm-ui-test-automation`
 - **Hol van a `Keys` / `JavascriptExecutor` / `TimeoutException`?** → [14-selenium-extra.md](14-selenium-extra.md)
 - **Hol van a `@CsvFileSource`?** → [15-junit5-assertions-class.md](15-junit5-assertions-class.md)
 
+---
+
+[ Következő: 01-junit5-annotations.md → ](01-junit5-annotations.md)

@@ -1,3 +1,7 @@
+[← Előző: 03-junit5-parameterized.md](03-junit5-parameterized.md)
+
+---
+
 # JUnit 5 extension modell
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/user-guide/#extensions>
@@ -81,3 +85,6 @@ Object instance = context.getRequiredTestInstance();
 context.getExecutionException().ifPresent(ex -> System.out.println(ex.getMessage()));
 ```
 
+---
+
+[ Következő: 05-selenium-core.md → ](05-selenium-core.md)

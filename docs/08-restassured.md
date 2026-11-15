@@ -1,3 +1,7 @@
+[← Előző: 07-selenium-advanced.md](07-selenium-advanced.md)
+
+---
+
 # REST Assured
 
 **Dokumentáció:** <https://rest-assured.io/>  
@@ -104,3 +108,6 @@ A séma fájl (`src/test/resources/schemas/post-schema.json`):
 }
 ```
 
+---
+
+[ Következő: 09-hamcrest.md → ](09-hamcrest.md)

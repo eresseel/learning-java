@@ -1,3 +1,7 @@
+[← Előző: 12-parallel-threadlocal.md](12-parallel-threadlocal.md)
+
+---
+
 # WebDriverManager
 
 **Dokumentáció:** <https://bonigarcia.dev/webdrivermanager/>  
@@ -40,3 +44,6 @@ driver = new ChromeDriver(options);
 
 A két megközelítés eredménye azonos: mindkét esetben a Selenium megtalálja a megfelelő `chromedriver`-t. A különbség csak az, hogy a Selenium Manager esetén nem kell függőséget felvenni és a `setup()` hívást megírni.
 
+---
+
+[ Következő: 14-selenium-extra.md → ](14-selenium-extra.md)

@@ -1,3 +1,7 @@
+[← Előző: 06-selenium-waits.md](06-selenium-waits.md)
+
+---
+
 # Selenium – haladó elemek
 
 **Dokumentáció:** <https://www.selenium.dev/documentation/webdriver/elements/>
@@ -72,3 +76,6 @@ driver.close();
 driver.switchTo().window(originalWindow);
 ```
 
+---
+
+[ Következő: 08-restassured.md → ](08-restassured.md)

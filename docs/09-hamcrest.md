@@ -1,3 +1,7 @@
+[← Előző: 08-restassured.md](08-restassured.md)
+
+---
+
 # Hamcrest matcherek
 
 **Dokumentáció:** <https://hamcrest.org/JavaHamcrest/javadoc/2.2/>  
@@ -79,3 +83,6 @@ import static org.hamcrest.Matchers.lessThan;
 .time(lessThan(5000L))   // a válaszidő legfeljebb 5 másodperc
 ```
 
+---
+
+[ Következő: 10-jackson.md → ](10-jackson.md)

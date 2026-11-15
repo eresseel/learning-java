@@ -1,3 +1,7 @@
+[← Előző: 04-junit5-extensions.md](04-junit5-extensions.md)
+
+---
+
 # Selenium WebDriver – alapok
 
 **Dokumentáció:** <https://www.selenium.dev/documentation/webdriver/>
@@ -118,3 +122,6 @@ File png = screenshotDriver.getScreenshotAs(OutputType.FILE);
 String base64 = screenshotDriver.getScreenshotAs(OutputType.BASE64);
 ```
 
+---
+
+[ Következő: 06-selenium-waits.md → ](06-selenium-waits.md)

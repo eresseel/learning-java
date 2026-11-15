@@ -1,3 +1,7 @@
+[← Előző: 13-webdrivermanager.md](13-webdrivermanager.md)
+
+---
+
 # Selenium – `Keys`, `JavascriptExecutor`, `TimeoutException`
 
 **Dokumentáció:** <https://www.selenium.dev/documentation/webdriver/>
@@ -84,3 +88,6 @@ try {
 
 > **Mikor érdemes elkapni?** Csak akkor, ha az elem megjelenése tényleg opcionális (pl. egy értesítési ablak, amely gyorsan el is tűnhet). Ha az elem megjelenése a teszt feltétele, ne kapd el a kivételt – hadd bukjon el a teszt.
 
+---
+
+[ Következő: 15-junit5-assertions-class.md → ](15-junit5-assertions-class.md)
