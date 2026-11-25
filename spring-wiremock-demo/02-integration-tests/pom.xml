@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PROJECT 02: Integration Tests
+  Ez a modul a 01-es modul összes production forrását másolja (vagy újra tartalmazza)
+  és hozzáad Testcontainers + REST Assured integrációs teszteket.
+
+  Miért önálló modul?
+  - A tesztelési függőségek (Testcontainers, REST Assured) ne szennyezzék a production POM-ot.
+  - CI pipeline-ban különválasztható: gyors unit tesztek vs. lassabb IT tesztek.
+  - Reális setup: valódi PostgreSQL konténerben fut, nem H2 in-memory mock-ban.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.1</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.example</groupId>
+  <artifactId>integration-tests</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>02 - Integration Tests (Testcontainers + REST Assured)</name>
+
+  <properties>
+    <java.version>21</java.version>
+    <!-- REST Assured verziója – Spring Boot BOM nem kezeli -->
+    <rest-assured.version>5.4.0</rest-assured.version>
+  </properties>
+
+  <dependencies>
+    <!-- --- Production függőségek (ugyanaz mint 01-ben) --- -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- --- Test scope függőségek --- -->
+
+    <!--
+      spring-boot-starter-test: JUnit 5, AssertJ, Mockito, MockMvc stb.
+      exclude junit-vintage: ne fusson JUnit 4 teszt
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!--
+      Testcontainers BOM – egységes verziókezelés az összes TC modulhoz.
+      A spring-boot-starter-parent nem tartalmaz TC BOM-ot, ezért kell.
+    -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers-bom</artifactId>
+      <version>1.20.4</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+
+    <!--
+      testcontainers-junit-jupiter: @Testcontainers + @Container annotációk,
+      automatikus start/stop lifecycle management JUnit 5-tel.
+    -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!--
+      PostgreSQL konténer – DockerHub postgres:16-alpine image-et húz le.
+      @ServiceConnection: Spring Boot 3.1+ automatikusan beállítja a datasource URL-t.
+    -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!--
+      REST Assured – DSL alapú HTTP kliens integrációs tesztekhez.
+      Valódi HTTP kéréseket küld a futó Spring Boot alkalmazásnak (RANDOM_PORT).
+      Előny vs MockMvc: a teljes HTTP stack tesztelődik (filter, encoding stb.)
+    -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JSON schema validáció REST Assured-hoz (opcionális, de hasznos) -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Testcontainers BOM importálása dependencyManagement-be -->
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>1.20.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <!--
+        maven-failsafe-plugin: IT tesztek futtatása (verify fázisban).
+        Névkonvenció: *IT.java fájlok.
+        Elkülönítés: surefire = unit tesztek, failsafe = integrációs tesztek.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

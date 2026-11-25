@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PROJECT 03: WireMock Tests
+  Ez a modul bővíti a 02-es architektúrát:
+  - NotificationClient: külső REST API hívás RestClient-tel (task létrehozásakor értesítés)
+  - WireMock: a külső API szimulálása (siker, 500, 503, timeout)
+
+  Miért WireMock?
+  - A külső API nem elérhető tesztben → mock szerver szimulálja
+  - Determinisztikus: pontosan meghatározható a válasz és a késés
+  - Teszt izolált: nem függ hálózattól, külső rendszertől
+  - Timeout tesztelés: valódi HTTP timeout szimulálható delay-jel
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.1</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.example</groupId>
+  <artifactId>wiremock-tests</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>03 - WireMock Tests (külső HTTP API szimulálása)</name>
+
+  <properties>
+    <java.version>21</java.version>
+    <rest-assured.version>5.4.0</rest-assured.version>
+    <!-- WireMock verziója – Spring Boot BOM nem tartalmazza -->
+    <wiremock.version>3.9.2</wiremock.version>
+  </properties>
+
+  <dependencies>
+    <!-- --- Production függőségek --- -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- --- Test scope --- -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Testcontainers (PostgreSQL) -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- REST Assured -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!--
+      WireMock standalone – önálló HTTP mock szerver.
+      wiremock:3.x = Java 11+ kompatibilis, Jetty 12-alapú.
+      Nem a wiremock-spring-boot-t használjuk, mert az beta stádiumban van;
+      a WireMockServer manuális kezelése átláthatóbb és stabilabb.
+    -->
+    <dependency>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock</artifactId>
+      <version>${wiremock.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>1.20.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

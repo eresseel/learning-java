@@ -1,0 +1,18 @@
+# Teszt profil – 03-as modul
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+# notification.service.url-t a tesztek dinamikusan állítják be WireMock URL-re.
+# Ez az alapértelmezett – tesztben @DynamicPropertySource felülírja.
+notification:
+  service:
+    url: http://localhost:9999  # placeholder, tesztben felülíródik
+
+logging:
+  level:
+    org.testcontainers: WARN
+    com.github.dockerjava: WARN
+    com.example: DEBUG          # saját kód DEBUG szinten → látjuk a warn logokat

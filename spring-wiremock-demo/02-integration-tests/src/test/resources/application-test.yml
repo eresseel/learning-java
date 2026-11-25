@@ -1,0 +1,19 @@
+# Teszt profil – Testcontainers felülírja a datasource-t @ServiceConnection-nel,
+# de ezek az extra beállítások hasznosak tesztekhez:
+spring:
+  jpa:
+    hibernate:
+      # create-drop: a teszt konténer indulásakor létrehozza a sémát,
+      # leálláskor törli. Csak tesztekhez megfelelő!
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Logging csökkentése tesztekben – csak a hibák kellenek
+logging:
+  level:
+    org.testcontainers: WARN
+    com.github.dockerjava: WARN
+    org.springframework: INFO
