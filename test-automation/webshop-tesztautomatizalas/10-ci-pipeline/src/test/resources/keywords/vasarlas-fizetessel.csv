@@ -1,0 +1,16 @@
+# Kulcsszóvezérelt teszt: keresés → kosár → fizetés (IV. feladat: kosár és fizetés folyamat)
+CLEAR_CART
+SEARCH;egér
+CHECK_RESULT_COUNT;2
+ADD_TO_CART;P006;3
+EXPECT_STATUS;201
+# Első próbálkozás: a PayPal elutasítja → 402, a kosár megmarad
+PAYPAL_RESPONDS;DECLINED
+CHECKOUT
+EXPECT_ERROR;402;PAYMENT_DECLINED
+CHECK_ITEM_COUNT;3
+# Második próbálkozás: sikeres fizetés → 201, üres kosár
+PAYPAL_RESPONDS;COMPLETED
+CHECKOUT
+EXPECT_STATUS;201
+CHECK_ITEM_COUNT;0

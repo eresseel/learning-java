@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Saját készítésű mintaadat: az eredeti autokereskedes.xml nem volt a tananyag része. -->
+<autokereskedes nev="Példa Autóház Kft.">
+    <auto id="1">
+        <marka>Toyota</marka>
+        <tipus>Corolla</tipus>
+        <evjarat>2019</evjarat>
+        <ar>6490000</ar>
+        <szin>ezüst</szin>
+    </auto>
+    <auto id="2">
+        <marka>Suzuki</marka>
+        <tipus>Vitara</tipus>
+        <evjarat>2021</evjarat>
+        <ar>7990000</ar>
+        <szin>piros</szin>
+    </auto>
+    <auto id="3">
+        <marka>Skoda</marka>
+        <tipus>Octavia Combi</tipus>
+        <evjarat>2017</evjarat>
+        <ar>4850000</ar>
+        <szin>fehér</szin>
+    </auto>
+    <auto id="4">
+        <marka>Opel</marka>
+        <tipus>Astra</tipus>
+        <evjarat>2015</evjarat>
+        <ar>2990000</ar>
+        <szin>kék</szin>
+    </auto>
+</autokereskedes>

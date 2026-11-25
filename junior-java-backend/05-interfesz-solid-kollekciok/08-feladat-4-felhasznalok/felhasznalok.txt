@@ -1,0 +1,12 @@
+# azonosito;jogosultsag;nev  (jogosultság: 1 = Vendég, 2 = Felhasználó, 3 = Admin)
+1001;3;Admin Aladár
+1002;2;Kovács Anna
+1003;1;Vendég Viktor
+1004;2;Nagy Béla
+1005;2;Szabó Csilla
+1006;1;Tóth Dénes
+1007;3;Kiss Erika
+1008;2;Varga Ferenc
+1009;4;Hibás Jogosultság
+abc;2;Hibás Azonosító
+1010;1;Molnár Gizella

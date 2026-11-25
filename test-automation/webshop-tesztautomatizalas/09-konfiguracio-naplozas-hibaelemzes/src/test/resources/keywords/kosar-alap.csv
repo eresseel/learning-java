@@ -1,0 +1,16 @@
+# Kulcsszóvezérelt teszt: kosár alapfolyamat (VIII. feladat – hozzáadás, mennyiség frissítése)
+# Formátum: KULCSSZO;argumentum1;argumentum2   ('#' kezdetű sor = megjegyzés)
+CLEAR_CART
+ADD_TO_CART;P001;2
+EXPECT_STATUS;201
+ADD_TO_CART;P003;1
+EXPECT_STATUS;201
+UPDATE_QTY;P001;5
+EXPECT_STATUS;200
+CHECK_QTY;P001;5
+CHECK_ITEM_COUNT;6
+# 5 × 7990 + 1 × 12990 = 52940
+CHECK_TOTAL;52940
+REMOVE_FROM_CART;P003
+EXPECT_STATUS;204
+CHECK_TOTAL;39950

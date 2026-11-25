@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Terméklista",
+  "description": "GET /products válasza: termékek tömbje (lehet üres).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "price"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "pattern": "^P[0-9]{3}$" },
+      "name": { "type": "string", "minLength": 1 },
+      "price": { "type": "number", "minimum": 0, "exclusiveMinimum": true }
+    }
+  }
+}

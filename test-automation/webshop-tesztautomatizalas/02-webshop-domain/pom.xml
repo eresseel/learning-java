@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  02. lépés – webshop domain: termék, katalógus, kosár (komponens szint).
+  Még mindig sima Java + JUnit 6: az üzleti szabályokat keretrendszer nélkül teszteljük.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hu.learning.webshop</groupId>
+    <artifactId>02-webshop-domain</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>02 - Webshop domain (termék, kosár)</name>
+
+    <properties>
+        <!-- Java 21 nyelvi szint, UTF-8 forráskódolás (ékezetes kommentek miatt fontos). -->
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>6.1.3</junit.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- A JUnit BOM egységesen kezeli a JUnit modulok verzióit. -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- JUnit Jupiter: teszt API (@Test, @ParameterizedTest) és a futtatómotor. -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.16.0</version>
+            </plugin>
+            <!-- Surefire: a "test" fázisban futtatja a *Test osztályokat (build-szakasz tesztjei). -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <failIfNoTests>true</failIfNoTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -26,3 +26,6 @@ screenshots/
 .DS_Store
 Thumbs.db
 *~
+
+# Szerzői joggal védett tananyag PDF-ek (helyben tartjuk, nem verziókezeljük)
+elmelet/

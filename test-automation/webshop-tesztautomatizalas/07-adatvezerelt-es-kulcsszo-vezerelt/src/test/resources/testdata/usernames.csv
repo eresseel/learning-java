@@ -1,0 +1,13 @@
+username;expectedValid;megjegyzes
+admin12;true;X. feladat: a SUT elfogadja
+abcde6;true;alsó határ (6)
+abcd5;false;határ alatt (5)
+abcdef7;true;határ felett (7)
+abcdefg8;true;a RÉGI szabály alsó határa (8)
+Admin12;true;nagybetű – a régi szabály tiltotta
+123456;true;csak számjegy
+adminxy;true;csak betű
+admin_12;false;aláhúzás nem megengedett
+admin 12;false;szóköz nem megengedett
+ádmin12;false;ékezetes betű nem megengedett
+"";false;üres név

@@ -1,0 +1,8 @@
+productId;quantity;expectedStatus;expectedErrorCode;megjegyzes
+P001;1;201;;alsó határ
+P001;99;201;;felső határ
+P001;0;400;INVALID_QUANTITY;alsó határ alatt
+P001;100;400;INVALID_QUANTITY;felső határ felett
+P001;-5;400;INVALID_QUANTITY;negatív
+P999;1;404;UNKNOWN_PRODUCT;ismeretlen termék
+P004;50;201;;érvényes középérték

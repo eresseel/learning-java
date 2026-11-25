@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "id": "minta1",
+      "content": "We need never be ashamed of our tears.",
+      "tags": [{ "id": "t1", "name": "Sadness" }],
+      "author": { "id": "a1", "name": "Charles Dickens", "slug": "charles-dickens" }
+    },
+    {
+      "id": "minta2",
+      "content": "Reflect upon your present blessings, of which every man has plenty; not on your past misfortunes, of which all men have some.",
+      "tags": [],
+      "author": { "id": "a1", "name": "Charles Dickens", "slug": "charles-dickens" }
+    },
+    {
+      "id": "minta3",
+      "content": "Have a heart that never hardens, and a temper that never tires, and a touch that never hurts.",
+      "tags": [],
+      "author": { "id": "a1", "name": "Charles Dickens", "slug": "charles-dickens" }
+    }
+  ],
+  "metadata": { "total": 3, "page": 1, "limit": 10 }
+}

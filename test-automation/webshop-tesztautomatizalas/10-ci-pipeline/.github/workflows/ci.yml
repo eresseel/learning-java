@@ -1,0 +1,157 @@
+# CI/CD pipeline a webshop tesztautomatizálási demóhoz (10. lépés).
+#
+# FONTOS: a GitHub csak a repó GYÖKERÉBEN lévő .github/workflows/ mappát olvassa. Ez a fájl a lépés
+# mappájában tananyagként szerepel; élesítéshez másold a repó gyökerébe (.github/workflows/webshop-ci.yml).
+# Minden parancs ebben a mappában fut (defaults.run.working-directory).
+#
+# Szakaszok (tananyag V. fejezet – Build vs. telepítés):
+#   1. build-gate   : fordítás + build-szakasz tesztek (komponens, komponensintegráció, szerződés,
+#                     WireMock, TAF önteszt). Sikertelen → nincs telepítés.
+#   2. deploy-test  : „telepítés” egy tesztkörnyezetbe (itt: a jar elindítása a runneren), majd
+#                     telepítés utáni rendszertesztek (*IT) – a telepítési minőségkapu.
+#   3. nightly      : éjszakai teljes regresszió (ütemezve).
+name: webshop-tesztautomatizalas-ci
+
+on:
+  push:
+    paths:
+      - "test-automation/webshop-tesztautomatizalas/10-ci-pipeline/**"
+  pull_request:
+    paths:
+      - "test-automation/webshop-tesztautomatizalas/10-ci-pipeline/**"
+  schedule:
+    - cron: "0 1 * * *"   # minden éjjel 01:00 UTC – esti regresszió
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  STEP_DIR: test-automation/webshop-tesztautomatizalas/10-ci-pipeline
+  JAR_NAME: 10-ci-pipeline-1.0.0-SNAPSHOT.jar
+
+defaults:
+  run:
+    working-directory: test-automation/webshop-tesztautomatizalas/10-ci-pipeline
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. kapu: BUILD – gyors visszajelzés minden commitra / PR-ra
+  # ---------------------------------------------------------------------------
+  build-gate:
+    name: "1. kapu – build és komponenstesztek"
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Java 21 + Maven cache
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Fordítás, build-szakasz tesztek, csomagolás (Surefire, *Test)
+        run: mvn -B verify -Pbuild-gate
+
+      - name: Tesztriportok mentése (bukás esetén is)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-gate-reports
+          path: |
+            ${{ env.STEP_DIR }}/target/surefire-reports/
+            ${{ env.STEP_DIR }}/target/taf-results.csv
+          if-no-files-found: ignore
+
+      - name: A telepítendő jar átadása a következő szakasznak
+        uses: actions/upload-artifact@v4
+        with:
+          name: webshop-jar
+          path: ${{ env.STEP_DIR }}/target/${{ env.JAR_NAME }}
+
+  # ---------------------------------------------------------------------------
+  # 2. kapu: TELEPÍTÉS UTÁNI rendszertesztek – csak sikeres build után
+  # ---------------------------------------------------------------------------
+  deploy-test:
+    name: "2. kapu – telepítés és rendszertesztek"
+    needs: build-gate
+    runs-on: ubuntu-latest
+    env:
+      # A TAF ebből tudja, hol a SUT (Config: -Dwebshop.baseUrl → WEBSHOP_BASE_URL → alapértelmezés)
+      WEBSHOP_BASE_URL: http://localhost:8080
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: A build-szakaszban készült jar letöltése (ugyanazt telepítjük, amit teszteltünk)
+        uses: actions/download-artifact@v4
+        with:
+          name: webshop-jar
+          path: ${{ env.STEP_DIR }}/deploy
+
+      - name: "Telepítés (szimulált): a jar elindítása a tesztkörnyezetben"
+        run: |
+          nohup java -jar deploy/${JAR_NAME} --server.port=8080 > deploy/sut.log 2>&1 &
+          echo $! > deploy/sut.pid
+
+      - name: Várakozás, amíg a SUT egészséges (health = UP)
+        run: |
+          for i in $(seq 1 60); do
+            if curl -sf "${WEBSHOP_BASE_URL}/actuator/health" | grep -q '"status":"UP"'; then
+              echo "SUT UP"; exit 0
+            fi
+            sleep 2
+          done
+          echo "A SUT nem indult el időben"; cat deploy/sut.log; exit 1
+
+      - name: Telepítés utáni rendszertesztek (Failsafe, *IT)
+        run: mvn -B verify -Pdeploy-gate
+
+      - name: Riportok és a SUT naplója (bukás esetén is – TAS/SUT elemzéshez)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-gate-reports
+          path: |
+            ${{ env.STEP_DIR }}/target/failsafe-reports/
+            ${{ env.STEP_DIR }}/target/taf-results-it.csv
+            ${{ env.STEP_DIR }}/deploy/sut.log
+          if-no-files-found: ignore
+
+      - name: SUT leállítása
+        if: always()
+        run: kill "$(cat deploy/sut.pid)" || true
+
+  # ---------------------------------------------------------------------------
+  # Éjszakai teljes regresszió (ütemezett) – minden teszt, egy futásban
+  # ---------------------------------------------------------------------------
+  nightly:
+    name: "Éjszakai teljes regresszió"
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Teljes ellenőrzés (unit + helyben indított SUT + *IT)
+        run: mvn -B verify
+      - name: Riportok
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-reports
+          path: |
+            ${{ env.STEP_DIR }}/target/surefire-reports/
+            ${{ env.STEP_DIR }}/target/failsafe-reports/
+            ${{ env.STEP_DIR }}/target/taf-results*.csv
+          if-no-files-found: ignore

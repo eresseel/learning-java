@@ -1,0 +1,33 @@
+# MySQL 8 adatbázis a 07-es lecke JDBC feladataihoz (Feladat I. és III.B).
+#
+# Indítás (ebből a mappából):   docker compose up -d
+# Leállítás:                     docker compose down
+# Leállítás + adatok törlése:    docker compose down -v
+#
+# A gépen a 3307-es porton érhető el (a 3306-ot gyakran egy helyi MySQL foglalja).
+services:
+  db:
+    image: mysql:8.4
+    container_name: jjb07-mysql
+    environment:
+      # Csak helyi gyakorláshoz! Éles rendszerben a jelszó ne legyen a fájlban.
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dml
+      MYSQL_USER: dml
+      MYSQL_PASSWORD: dml
+      TZ: Europe/Budapest
+    ports:
+      - "3307:3306"
+    volumes:
+      # Az első induláskor a konténer lefuttatja az itt lévő *.sql fájlokat
+      # a MYSQL_DATABASE (dml) adatbázison.
+      - ./db:/docker-entrypoint-initdb.d:ro
+      - dml-adat:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  dml-adat:

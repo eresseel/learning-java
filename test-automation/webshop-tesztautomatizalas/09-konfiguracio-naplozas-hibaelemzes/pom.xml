@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  09. lépés – + konfiguráció (környezeti változó / system property), előzetes környezet-ellenőrzés,
+  strukturált naplózás korrelációs azonosítóval, eredmény-osztályozás (Passed / Failed / TAS error /
+  Inconclusive) és a X. feladat TAS-vs-SUT hibaelemzése.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- A Spring Boot szülő-POM: függőségverziók, plugin-alapbeállítások (surefire, failsafe, compiler). -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.16</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>hu.learning.webshop</groupId>
+    <artifactId>09-konfiguracio-naplozas-hibaelemzes</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>09 - Konfiguráció, naplózás, hibaelemzés</name>
+
+    <properties>
+        <!-- A Boot parent ebből állítja a maven.compiler.release-t. -->
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- A WireMock-ot a Spring Boot BOM nem kezeli, ezért a verziót mi adjuk meg. -->
+        <wiremock.version>3.13.2</wiremock.version>
+    </properties>
+
+    <dependencies>
+        <!-- Webes réteg: beágyazott Tomcat, Spring MVC, Jackson (JSON). -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Actuator: /actuator/health végpont – a tesztek előzetes ellenőrzése (preflight) ezt hívja. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- Bean Validation (@NotBlank, @NotNull) a kérés-DTO-khoz. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- Teszt: JUnit Jupiter, Spring Test (MockMvc), AssertJ, Hamcrest, Mockito, JSONPath. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- JUnit Platform TestKit: tesztek programozott futtatása – a saját JUnit extension tesztjéhez. -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-testkit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- REST Assured: Java DSL HTTP API-k teszteléséhez (given / when / then). -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- JSON Schema (draft-04) validáció REST Assured matcherként: matchesJsonSchemaInClasspath(...). -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- WireMock (standalone = árnyékolt függőségekkel, nem ütközik a Spring Jetty/Jackson verzióival):
+             HTTP mock szerver a külső PayPal API szimulálására. -->
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Futtatható ("fat") jar készítése és "mvn spring-boot:run". -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

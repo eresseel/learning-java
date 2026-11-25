@@ -13,6 +13,9 @@ Java tanulási jegyzetek és gyakorló projektek: a nyelvi alapoktól a Selenium
 | [test-automation/orangehrm-lepesrol-lepesre](test-automation/orangehrm-lepesrol-lepesre/) | OrangeHRM UI tesztautomatizálás 10 lépésben, Docker és GitHub Actions támogatással | 21 | Maven |
 | [test-automation/demo](test-automation/demo/) | Minimális Maven quickstart Selenium bejelentkezési teszttel | 21 | Maven Wrapper |
 | [spring-wiremock-demo](spring-wiremock-demo/) | Spring Boot 3 REST API, Testcontainers és WireMock integrációs tesztek | 21 | Maven |
+| [junior-java-backend](junior-java-backend/) | Junior Java Backend tanfolyam 7 leckéje: alapok, OOP, kivételek, interfészek, kollekciók, Swing, JDBC, HTTP, XML/JSON (64 feladat) | 21 | `javac` / Maven |
+| [feladatlapok](feladatlapok/) | Bankszámla TDD lépésenként, újság-nyilvántartó dolgozat, Mockito lánc | 21 | Maven |
+| [test-automation/webshop-tesztautomatizalas](test-automation/webshop-tesztautomatizalas/) | ISTQB tesztautomatizálás 10 lépésben: TDD, Spring Boot REST API, REST Assured, séma- és contract teszt, WireMock, adat- és kulcsszóvezérelt tesztek, TAF-rétegek, CI | 21 | Maven |
 | [docs](docs/00-index.md) | Kézikönyv a tesztprojektekben használt API-khoz (JUnit, Selenium, REST Assured, Hamcrest, Jackson, WireMock) | – | – |
 
 ## Egységes felépítés
@@ -29,7 +32,7 @@ Minden Maven projekt Java 21-re fordít (`maven.compiler.release`), és ugyanazo
 
 | Függőség / eszköz | Verzió | Hol |
 |---|---|---|
-| JUnit (BOM) | 6.1.3 | `test-automation` |
+| JUnit (BOM) | 6.1.3 | `test-automation`, `feladatlapok`, `webshop` 01–02 |
 | Selenium | 4.54.0 | `test-automation` |
 | WebDriverManager | 6.4.0 | `test-automation` |
 | REST Assured | 6.3.0 | `test-automation` |
@@ -37,7 +40,7 @@ Minden Maven projekt Java 21-re fordít (`maven.compiler.release`), és ugyanazo
 | WireMock (standalone) | 3.13.2 | mindenhol |
 | maven-compiler-plugin / maven-surefire-plugin | 3.16.0 / 3.6.1 | `test-automation` |
 | Maven Wrapper disztribúció | 3.10.2 | `demo`, `orangehrm …/10-docker-ci-wrapper` |
-| Spring Boot | 3.5.16 | `spring-wiremock-demo` |
+| Spring Boot | 3.5.16 | `spring-wiremock-demo`, `webshop` 03–10 |
 
 A `spring-wiremock-demo` modulokban a JUnit, REST Assured és Testcontainers verzióját a Spring Boot BOM adja (Spring Boot 3.x-hez JUnit 5 tartozik), ezért ott nincs kézzel rögzítve.
 

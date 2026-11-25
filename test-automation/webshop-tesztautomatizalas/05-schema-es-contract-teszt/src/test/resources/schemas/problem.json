@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Hibaválasz (RFC 9457 ProblemDetail + errorCode)",
+  "type": "object",
+  "required": ["type", "title", "status", "detail", "instance", "errorCode"],
+  "properties": {
+    "type": { "type": "string" },
+    "title": { "type": "string" },
+    "status": { "type": "integer", "minimum": 400, "maximum": 599 },
+    "detail": { "type": "string" },
+    "instance": { "type": "string" },
+    "errorCode": {
+      "type": "string",
+      "enum": ["UNKNOWN_PRODUCT", "ITEM_NOT_IN_CART", "INVALID_QUANTITY", "VALIDATION_ERROR", "MALFORMED_REQUEST"]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+  Saját készítésű, lerövidített mintaoldal a parser teszteléséhez.
+  A szerkezet a ruander.hu 2026. novemberi HTML-jét utánozza (kurzuskártyák
+  "course-name" spannal), a nevek és árak csak példák.
+-->
+<html lang="hu">
+<head><meta charset="utf-8"><title>Minta</title></head>
+<body>
+<!-- Főoldali formátum: ár + currency span -->
+<ul>
+  <li class="round-9 small-shadow">
+    <a href="#"><img src="a.webp" alt="Java tanfolyam" /><span class="course-name" style="font-weight:600;">Junior Java Backend fejlesztő tanfolyam</span><div><span>></span><span class="btn btn-orange round-9">690.000 <span class="currency" style="font-size:0.725rem;">Ft</span></span></div></a>
+  </li>
+  <li class="round-9 small-shadow">
+    <a href="#"><span class="course-name" style="font-weight:600;">Junior szoftvertesztelő + automata tesztelő tanfolyam</span><div><span class="btn btn-orange round-9"><span style="text-decoration:line-through;">1.030.000 <span class="currency">Ft</span></span> 790.000 <span class="currency">Ft</span></span></div></a>
+  </li>
+  <!-- Ugyanaz a tanfolyam egy másik fülön is: csak egyszer kell felvenni -->
+  <li class="round-9 small-shadow">
+    <a href="#"><span class="course-name" style="font-weight:600;">Junior Java Backend fejlesztő tanfolyam</span><div><span class="btn">690.000 <span class="currency">Ft</span></span></div></a>
+  </li>
+  <!-- Ár nélküli kártya: kimarad -->
+  <li class="round-9 small-shadow">
+    <a href="#"><span class="course-name" style="font-weight:600;">Hamarosan induló workshop</span><div><span class="btn">Érdekel</span></div></a>
+  </li>
+</ul>
+<!-- Kategóriaoldali formátum: nettó+áfa (bruttó), illetve egyszerű ár -->
+<ul>
+  <li class="round-9 small-shadow">
+    <a href="#"><span class="course-name mt--15" style="display:inline-block;">SQL &amp; MySQL alapok tanfolyam</span><br/><span class="color--blue mb--15 font-semi-bold">
+      24 óra /
+      101.575 Ft+áfa (129.000 Ft)
+      / képesítés: tanúsítvány</span></a>
+  </li>
+  <li class="round-9 small-shadow">
+    <a href="#"><span class="course-name mt--15">Python programozó tanfolyam</span><br/><span class="color--blue mb--15 font-semi-bold">
+      499.000 Ft
+    </span></a>
+  </li>
+</ul>
+</body>
+</html>

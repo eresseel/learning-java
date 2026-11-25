@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Sikeres fizetés (POST /checkout)",
+  "type": "object",
+  "required": ["orderId", "paymentId", "status", "total", "currency"],
+  "additionalProperties": false,
+  "properties": {
+    "orderId": { "type": "string", "pattern": "^ORD-[0-9a-f-]{36}$" },
+    "paymentId": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["PAID"] },
+    "total": { "type": "number", "minimum": 0, "exclusiveMinimum": true },
+    "currency": { "type": "string", "enum": ["HUF"] }
+  }
+}

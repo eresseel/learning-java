@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Felhasználónév-validáció válasza",
+  "description": "Érvényes névnél pontosan {\"valid\": true}; érvénytelennél valid=false és reason kötelező.",
+  "type": "object",
+  "required": ["valid"],
+  "additionalProperties": false,
+  "properties": {
+    "valid": { "type": "boolean" },
+    "reason": { "type": "string", "minLength": 1 }
+  },
+  "oneOf": [
+    { "properties": { "valid": { "enum": [true] } }, "not": { "required": ["reason"] } },
+    { "properties": { "valid": { "enum": [false] } }, "required": ["reason"] }
+  ]
+}

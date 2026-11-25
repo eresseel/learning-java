@@ -1,0 +1,84 @@
+{
+  "consumer": "webshop-frontend",
+  "provider": "webshop-api",
+  "description": "A React frontend (fogyasztó) által elvárt interakciók a webshop backenddel (szolgáltató). A 'body' PÉLDA: a szolgáltatónak minden itt szereplő mezőt azonos JSON-típussal kell adnia; további mezők megengedettek. Az 'exact' JSON Pointer → érték párjai pontos egyezést írnak elő.",
+  "interactions": [
+    {
+      "description": "érvényes felhasználónév ellenőrzése (X. feladat)",
+      "providerState": "nincs előfeltétel",
+      "request": { "method": "POST", "path": "/validate-username", "body": { "username": "admin12" } },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "body": { "valid": true },
+        "exact": { "/valid": true }
+      }
+    },
+    {
+      "description": "túl rövid felhasználónév – a frontend kiírja az okot",
+      "providerState": "nincs előfeltétel",
+      "request": { "method": "POST", "path": "/validate-username", "body": { "username": "adm" } },
+      "response": {
+        "status": 200,
+        "body": { "valid": false, "reason": "szöveg" },
+        "exact": { "/valid": false }
+      }
+    },
+    {
+      "description": "termékkeresés név alapján",
+      "providerState": "a katalógus a mintatermékeket tartalmazza",
+      "request": { "method": "GET", "path": "/products", "query": { "q": "egér" } },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "body": [ { "id": "P001", "name": "Vezeték nélküli egér", "price": 7990.00 } ]
+      }
+    },
+    {
+      "description": "nem létező termék lekérdezése",
+      "providerState": "a katalógus a mintatermékeket tartalmazza",
+      "request": { "method": "GET", "path": "/products/P404" },
+      "response": {
+        "status": 404,
+        "headers": { "Content-Type": "application/problem+json" },
+        "body": { "title": "szöveg", "status": 404, "detail": "szöveg", "errorCode": "UNKNOWN_PRODUCT" },
+        "exact": { "/errorCode": "UNKNOWN_PRODUCT" }
+      }
+    },
+    {
+      "description": "termék kosárba helyezése",
+      "providerState": "a kosár üres",
+      "request": { "method": "POST", "path": "/cart/items", "body": { "productId": "P001", "quantity": 2 } },
+      "response": {
+        "status": 201,
+        "body": {
+          "items": [ { "productId": "P001", "name": "szöveg", "unitPrice": 7990.00, "quantity": 2, "lineTotal": 15980.00 } ],
+          "itemCount": 2,
+          "total": 15980.00,
+          "currency": "HUF"
+        },
+        "exact": { "/items/0/productId": "P001", "/items/0/quantity": 2, "/currency": "HUF" }
+      }
+    },
+    {
+      "description": "kosártétel mennyiségének frissítése",
+      "providerState": "a kosárban 1 db P001 van",
+      "request": { "method": "PATCH", "path": "/cart/items/P001", "body": { "quantity": 3 } },
+      "response": {
+        "status": 200,
+        "body": { "items": [ { "productId": "P001", "quantity": 3 } ], "total": 23970.00 },
+        "exact": { "/items/0/quantity": 3 }
+      }
+    },
+    {
+      "description": "érvénytelen mennyiség – a frontend a hibakód alapján jelez",
+      "providerState": "a kosárban 1 db P001 van",
+      "request": { "method": "PATCH", "path": "/cart/items/P001", "body": { "quantity": 0 } },
+      "response": {
+        "status": 400,
+        "body": { "errorCode": "INVALID_QUANTITY", "detail": "szöveg" },
+        "exact": { "/errorCode": "INVALID_QUANTITY" }
+      }
+    }
+  ]
+}
