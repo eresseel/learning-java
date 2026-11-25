@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post List</title>
+</head>
+<body>
+    <h1>Posts</h1>
+    <input id="filter" type="text" placeholder="Filter by title...">
+    <ul id="post-list"></ul>
+
+    <script>
+        var posts = [
+            {id: 1, title: "First post"},
+            {id: 2, title: "Second post"},
+            {id: 3, title: "Third post"},
+            {id: 4, title: "Another one"},
+            {id: 5, title: "Final post"}
+        ];
+
+        var list = document.getElementById('post-list');
+        posts.forEach(function(p) {
+            var li = document.createElement('li');
+            li.setAttribute('data-testid', 'post-item');
+            li.setAttribute('data-id', p.id);
+            var span = document.createElement('span');
+            span.setAttribute('data-testid', 'post-title');
+            span.textContent = p.title;
+            li.appendChild(span);
+            list.appendChild(li);
+        });
+
+        document.getElementById('filter').addEventListener('input', function() {
+            var term = this.value.toLowerCase();
+            document.querySelectorAll('[data-testid="post-item"]').forEach(function(li) {
+                var title = li.querySelector('[data-testid="post-title"]').textContent.toLowerCase();
+                li.hidden = !title.includes(term);
+            });
+        });
+    </script>
+</body>
+</html>

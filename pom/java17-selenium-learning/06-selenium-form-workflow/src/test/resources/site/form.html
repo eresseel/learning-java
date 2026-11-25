@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+</head>
+<body>
+    <h1>Contact form</h1>
+    <form id="contact-form">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text">
+        <span id="name-error" role="alert"></span>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email">
+
+        <button id="submit" type="submit">Submit</button>
+    </form>
+    <p id="status" role="status"></p>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const error = document.getElementById('name-error');
+            const status = document.getElementById('status');
+
+            error.textContent = '';
+            status.textContent = '';
+
+            if (!name) {
+                error.textContent = 'Name is required';
+                return;
+            }
+
+            status.textContent = 'Form submitted for ' + name;
+        });
+    </script>
+</body>
+</html>

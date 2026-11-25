@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Elements</title>
+</head>
+<body>
+    <h1>Advanced elements</h1>
+
+    <!-- Legördülő lista (select) -->
+    <label for="country">Country</label>
+    <select id="country">
+        <option value="">-- choose --</option>
+        <option value="hu">Hungary</option>
+        <option value="de">Germany</option>
+        <option value="at">Austria</option>
+    </select>
+
+    <!-- Jelölőnégyzet (checkbox) -->
+    <label><input type="checkbox" id="newsletter"> Subscribe to newsletter</label>
+
+    <!-- JavaScript alert és confirm párbeszédablak -->
+    <button id="alert-btn" type="button" onclick="alert('Hello from alert')">Show alert</button>
+    <button id="confirm-btn" type="button"
+            onclick="document.getElementById('confirm-result').textContent = confirm('Are you sure?') ? 'Confirmed' : 'Cancelled'">
+        Show confirm
+    </button>
+    <p id="confirm-result"></p>
+
+    <!-- Beágyazott oldal (iframe): a benne lévő elemeket csak a keretre váltás után lehet elérni -->
+    <iframe id="info-frame" title="info" srcdoc="<p id='frame-text'>Text inside frame</p>"></iframe>
+
+    <!-- Késve megjelenő elem: a gomb után 1 másodperccel kerül az oldalra -->
+    <button id="load-btn" type="button"
+            onclick="setTimeout(function () { var p = document.createElement('p'); p.id = 'dynamic-text'; p.textContent = 'Loaded!'; document.body.appendChild(p); }, 1000)">
+        Load
+    </button>
+
+    <!-- Új ablakban/fülön megnyíló link -->
+    <a id="form-link" href="form.html" target="_blank">Open form in new window</a>
+</body>
+</html>
