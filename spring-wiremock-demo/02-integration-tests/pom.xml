@@ -18,7 +18,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.1</version>
+    <version>3.5.16</version>
     <relativePath/>
   </parent>
 
@@ -30,11 +30,10 @@
   <properties>
     <java.version>21</java.version>
     <!-- REST Assured verziója – Spring Boot BOM nem kezeli -->
-    <rest-assured.version>5.4.0</rest-assured.version>
   </properties>
 
   <dependencies>
-    <!-- --- Production függőségek (ugyanaz mint 01-ben) --- -->
+    <!-- == Production függőségek (ugyanaz mint 01-ben) == -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -53,7 +52,7 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- --- Test scope függőségek --- -->
+    <!-- == Test scope függőségek == -->
 
     <!--
       spring-boot-starter-test: JUnit 5, AssertJ, Mockito, MockMvc stb.
@@ -65,16 +64,11 @@
       <scope>test</scope>
     </dependency>
 
-    <!--
-      Testcontainers BOM – egységes verziókezelés az összes TC modulhoz.
-      A spring-boot-starter-parent nem tartalmaz TC BOM-ot, ezért kell.
-    -->
+    <!-- @ServiceConnection: a Testcontainers konténer adatai automatikusan a datasource-ba kerülnek -->
     <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>testcontainers-bom</artifactId>
-      <version>1.20.4</version>
-      <type>pom</type>
-      <scope>import</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-testcontainers</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <!--
@@ -105,7 +99,6 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
-      <version>${rest-assured.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -113,23 +106,9 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>json-schema-validator</artifactId>
-      <version>${rest-assured.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <dependencyManagement>
-    <dependencies>
-      <!-- Testcontainers BOM importálása dependencyManagement-be -->
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>testcontainers-bom</artifactId>
-        <version>1.20.4</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <build>
     <plugins>

@@ -2,7 +2,7 @@
 
 ---
 
-# JUnit 5 annotációk
+# JUnit annotációk
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/user-guide/>
 

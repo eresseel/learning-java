@@ -1,7 +1,7 @@
 # Spring Boot Integrációs Tesztelés – WireMock Demo
 
 Három egymásra épülő Maven projekt, amelyek bemutatják az iparági standard integrációs
-tesztelési technikákat Spring Boot 3.4 + Java 21 alkalmazásban.
+tesztelési technikákat Spring Boot 3.5 + Java 21 alkalmazásban.
 
 ---
 
@@ -68,8 +68,8 @@ mvn spring-boot:run
 | Eszköz | Verzió | Szerep |
 |---|---|---|
 | JUnit 5 | (Spring Boot BOM) | Teszt keretrendszer |
-| Testcontainers | 1.20.4 | PostgreSQL Docker konténer kezelése |
-| REST Assured | 5.4.0 | HTTP kliens tesztekhez (valódi kérések) |
+| Testcontainers | (Spring Boot BOM) | PostgreSQL Docker konténer kezelése |
+| REST Assured | (Spring Boot BOM) | HTTP kliens tesztekhez (valódi kérések) |
 | maven-failsafe-plugin | (Spring Boot BOM) | IT tesztek futtatása `verify` fázisban |
 
 ### Testcontainers magyarázat
@@ -155,7 +155,7 @@ mvn test            # csak unit tesztek (itt nincs)
 ### Technológiák
 | Eszköz | Verzió | Szerep |
 |---|---|---|
-| WireMock | 3.9.2 | HTTP mock szerver |
+| WireMock (standalone) | 3.13.2 | HTTP mock szerver |
 | RestClient | Spring 6 | Külső API hívás (a régi RestTemplate modern utódja) |
 
 ### WireMock konfiguráció
@@ -251,10 +251,10 @@ cd 03-wiremock-tests && mvn verify
 | Technológia | Verzió |
 |---|---|
 | Java | 21 (LTS) |
-| Spring Boot | 3.4.1 |
-| Testcontainers | 1.20.4 |
-| REST Assured | 5.4.0 |
-| WireMock | 3.9.2 |
+| Spring Boot | 3.5.16 |
+| Testcontainers | (Spring Boot BOM) |
+| REST Assured | (Spring Boot BOM) |
+| WireMock (standalone) | 3.13.2 |
 | PostgreSQL image | 16-alpine |
 
 ---

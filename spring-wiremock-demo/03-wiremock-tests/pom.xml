@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.1</version>
+    <version>3.5.16</version>
     <relativePath/>
   </parent>
 
@@ -31,13 +31,12 @@
 
   <properties>
     <java.version>21</java.version>
-    <rest-assured.version>5.4.0</rest-assured.version>
     <!-- WireMock verziója – Spring Boot BOM nem tartalmazza -->
-    <wiremock.version>3.9.2</wiremock.version>
+    <wiremock.version>3.13.2</wiremock.version>
   </properties>
 
   <dependencies>
-    <!-- --- Production függőségek --- -->
+    <!-- == Production függőségek == -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -56,10 +55,17 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- --- Test scope --- -->
+    <!-- == Test scope == -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- @ServiceConnection: a Testcontainers konténer adatai automatikusan a datasource-ba kerülnek -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-testcontainers</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -79,7 +85,6 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
-      <version>${rest-assured.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -91,23 +96,11 @@
     -->
     <dependency>
       <groupId>org.wiremock</groupId>
-      <artifactId>wiremock</artifactId>
+      <artifactId>wiremock-standalone</artifactId>
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>testcontainers-bom</artifactId>
-        <version>1.20.4</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <build>
     <plugins>

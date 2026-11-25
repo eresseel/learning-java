@@ -14,8 +14,8 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <!-- Spring Boot 3.4.x – legfrissebb stabil, Java 21 LTS kompatibilis -->
-    <version>3.4.1</version>
+    <!-- Spring Boot 3.5.x – a 3.x ág legfrissebb stabil kiadása, Java 21 LTS kompatibilis -->
+    <version>3.5.16</version>
     <relativePath/>
   </parent>
 

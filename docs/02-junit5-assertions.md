@@ -2,7 +2,7 @@
 
 ---
 
-# JUnit 5 assertions (ellenőrzések)
+# JUnit assertions (ellenőrzések)
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html>
 

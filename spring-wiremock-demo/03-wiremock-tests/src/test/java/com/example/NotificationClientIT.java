@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.hamcrest.Matchers;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -81,7 +83,7 @@ class NotificationClientIT extends AbstractWireMockIntegrationTest {
                 // Task sikeresen létrejött
                 .statusCode(201)
                 .body("id", notNullValue())
-                .body("title", equalTo("Implement WireMock"));
+                .body("title", Matchers.equalTo("Implement WireMock"));
 
             // --- ASSERT: WireMock kapta-e a kérést? ---
             // Ellenőrizzük, hogy pontosan 1 POST kérés ment a WireMock-hoz
@@ -155,7 +157,7 @@ class NotificationClientIT extends AbstractWireMockIntegrationTest {
                 // Kulcspont: 201 Created! Nem 500! A belső resilience logika elnyeli a hibát.
                 .statusCode(201)
                 .body("id", notNullValue())
-                .body("title", equalTo("Task with notification failure"));
+                .body("title", Matchers.equalTo("Task with notification failure"));
 
             // A WireMock valóban kapott egy kérést (az értesítés megpróbálkozott)
             wireMockServer.verify(1, postRequestedFor(urlEqualTo("/notifications/tasks")));
@@ -186,7 +188,7 @@ class NotificationClientIT extends AbstractWireMockIntegrationTest {
                 .post("/api/tasks")
             .then()
                 .statusCode(201)
-                .body("title", equalTo("Task during service outage"));
+                .body("title", Matchers.equalTo("Task during service outage"));
 
             wireMockServer.verify(1, postRequestedFor(urlEqualTo("/notifications/tasks")));
         }
@@ -209,7 +211,7 @@ class NotificationClientIT extends AbstractWireMockIntegrationTest {
                     .post("/api/tasks")
                 .then()
                     .statusCode(201)
-                    .body("title", equalTo("Task " + i));
+                    .body("title", Matchers.equalTo("Task " + i));
             }
 
             // 3 értesítési kísérlet ment a WireMock-hoz
@@ -259,7 +261,7 @@ class NotificationClientIT extends AbstractWireMockIntegrationTest {
             .then()
                 // A task létrejön – a kérés megvárja a lassú választ (timeout nincs beállítva)
                 .statusCode(201)
-                .body("title", equalTo("Task with slow notification"))
+                .body("title", Matchers.equalTo("Task with slow notification"))
                 // Teljes kérés ideje > 2 másodperc (mivel a notification vár)
                 .time(greaterThan(1900L));  // ms-ban, kicsit kevesebb mint 2s a biztonság miatt
         }
@@ -294,7 +296,7 @@ class NotificationClientIT extends AbstractWireMockIntegrationTest {
             .then()
                 // A task MÉGIS létrejön – a 404 értesítési hiba nem töri meg az alkalmazást
                 .statusCode(201)
-                .body("title", equalTo("Task without notification stub"));
+                .body("title", Matchers.equalTo("Task without notification stub"));
         }
     }
 }

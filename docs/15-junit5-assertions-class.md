@@ -10,7 +10,7 @@
 
 ## Statikus import vs. osztályszintű hívás
 
-A JUnit 5 `Assertions` osztályának metódusai kétféleképpen hívhatók. A statikus import olvashatóbb és rövidebb, az osztályszintű hívás viszont explicit: a kódból egyértelműen látszik, hogy ez egy JUnit assertion.
+A JUnit `Assertions` osztályának metódusai kétféleképpen hívhatók. A statikus import olvashatóbb és rövidebb, az osztályszintű hívás viszont explicit: a kódból egyértelműen látszik, hogy ez egy JUnit assertion.
 
 ```java
 // 1. Statikus importtal (a learning zip-ben használt módszer):

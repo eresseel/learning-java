@@ -2,7 +2,7 @@
 
 ---
 
-# JUnit 5 paraméterezett tesztek
+# JUnit paraméterezett tesztek
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests>
 

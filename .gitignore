@@ -1,1 +1,28 @@
+# Build kimenetek
+target/
+bin/
+out/
+*.class
+
+# Maven
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Teszt futás melléktermékei
+downloads/
+screenshots/
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+
+# Operációs rendszer
 .DS_Store
+Thumbs.db
+*~

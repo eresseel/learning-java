@@ -61,7 +61,8 @@ public abstract class AbstractWireMockIntegrationTest {
 
     static {
         wireMockServer = new WireMockServer(
-                WireMockConfiguration.wireMockConfig().dynamicPort()
+                // http2PlainDisabled: enélkül a JDK HttpClient h2c upgrade kérésére WireMock RST_STREAM-mel bontja a kapcsolatot
+                WireMockConfiguration.wireMockConfig().dynamicPort().http2PlainDisabled(true)
         );
         wireMockServer.start();
     }

@@ -1,10 +1,10 @@
 # Import-leírások – áttekintő
 
-A két projektben (`java17-selenium-learning` és `orangehrm-ui-test-automation`) használt külső könyvtárak és JUnit 5 API-k leírása példakódokkal és dokumentációs linkekkel.
+A két projektben ([`test-automation/selenium-learning`](../test-automation/selenium-learning/) és [`test-automation/orangehrm-lepesrol-lepesre`](../test-automation/orangehrm-lepesrol-lepesre/)) használt külső könyvtárak és JUnit API-k leírása példakódokkal és dokumentációs linkekkel.
 
 ---
 
-| Fájl | Témakör | Érintett szintek |
+| Fájl | Témakör | Érintett lépések |
 |------|---------|-----------------|
 | [01-junit5-annotations.md](01-junit5-annotations.md) | `@Test`, `@BeforeEach`, `@AfterEach`, `@BeforeAll`, `@Disabled`, `@DisplayName`, `@Tag`, `@Nested`, `@EnabledIfSystemProperty` | 01–17 |
 | [02-junit5-assertions.md](02-junit5-assertions.md) | `assertEquals`, `assertTrue`, `assertFalse`, `assertNotNull`, `assertSame`, `assertThrows` | 01–17 |
@@ -18,9 +18,9 @@ A két projektben (`java17-selenium-learning` és `orangehrm-ui-test-automation`
 | [10-jackson.md](10-jackson.md) | `ObjectMapper`, `JsonNode`, `@JsonIgnoreProperties`, `@JsonInclude` | 10–12, 17 |
 | [11-wiremock.md](11-wiremock.md) | `WireMockExtension`, `stubFor`, `Fault`, `verify` | 12 |
 | [12-parallel-threadlocal.md](12-parallel-threadlocal.md) | `ThreadLocal`, `junit-platform.properties`, `@Execution` | 16 |
-| [13-webdrivermanager.md](13-webdrivermanager.md) | `WebDriverManager`, összehasonlítás a Selenium Manager-rel | OrangeHRM zip |
-| [14-selenium-extra.md](14-selenium-extra.md) | `Keys`, `JavascriptExecutor`, `TimeoutException` | OrangeHRM zip |
-| [15-junit5-assertions-class.md](15-junit5-assertions-class.md) | `Assertions` osztályszintű hívás, `@CsvFileSource` | OrangeHRM zip |
+| [13-webdrivermanager.md](13-webdrivermanager.md) | `WebDriverManager`, összehasonlítás a Selenium Manager-rel | OrangeHRM 01–10 |
+| [14-selenium-extra.md](14-selenium-extra.md) | `Keys`, `JavascriptExecutor`, `TimeoutException` | OrangeHRM 01–10 |
+| [15-junit5-assertions-class.md](15-junit5-assertions-class.md) | `Assertions` osztályszintű hívás, `@CsvFileSource` | OrangeHRM 01–10 |
 
 ---
 

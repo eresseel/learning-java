@@ -1,0 +1,12 @@
+# Minden szöveges fájl LF sorvégzéssel kerül a repóba
+* text=auto eol=lf
+
+# Windows szkriptek maradjanak CRLF-esek
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Bináris fájlok
+*.dat binary
+*.png binary
+*.jpg binary
+*.jar binary

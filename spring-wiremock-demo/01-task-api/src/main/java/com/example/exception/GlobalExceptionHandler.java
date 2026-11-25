@@ -2,6 +2,7 @@ package com.example.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
  * RFC 7807 ProblemDetail választ ad vissza (Spring 6+ natív támogatás):
  *  - TaskNotFoundException    → 404 Not Found
  *  - Validation hiba          → 400 Bad Request + mezőhibák map-je
+ *  - Hiányzó / hibás JSON body → 400 Bad Request
  *  - Általános Exception      → 500 Internal Server Error
  *
  * ProblemDetail előnye: szabványos JSON struktúra, bővíthető egyedi property-kkel.
@@ -51,6 +53,15 @@ public class GlobalExceptionHandler {
 
         problem.setProperty("violations", violations);
         return problem;
+    }
+
+    /**
+     * Hiányzó vagy nem értelmezhető kérés törzs (pl. üres body, hibás JSON) – 400.
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ProblemDetail handleNotReadable(HttpMessageNotReadableException ex) {
+        return ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, "Malformed or missing request body");
     }
 
     /**

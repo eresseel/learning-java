@@ -4,7 +4,7 @@
 
 # Párhuzamos futtatás és `ThreadLocal`
 
-**JUnit 5 párhuzamosság:** <https://junit.org/junit5/docs/current/user-guide/#writing-tests-parallel-execution>  
+**JUnit párhuzamosság:** <https://junit.org/junit5/docs/current/user-guide/#writing-tests-parallel-execution>  
 **Java ThreadLocal:** <https://docs.oracle.com/en/java/docs/api/java.base/java/lang/ThreadLocal.html>
 
 ---
@@ -41,7 +41,7 @@ public final class DriverFactory {
 
 ## `junit-platform.properties`
 
-A JUnit 5 párhuzamos futtatását a `src/test/resources/junit-platform.properties` fájl konfigurálja.
+A JUnit párhuzamos futtatását a `src/test/resources/junit-platform.properties` fájl konfigurálja.
 
 ```properties
 # Párhuzamos futtatás bekapcsolása:

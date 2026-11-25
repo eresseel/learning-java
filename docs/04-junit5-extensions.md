@@ -2,7 +2,7 @@
 
 ---
 
-# JUnit 5 extension modell
+# JUnit extension modell
 
 **Dokumentáció:** <https://junit.org/junit5/docs/current/user-guide/#extensions>
 

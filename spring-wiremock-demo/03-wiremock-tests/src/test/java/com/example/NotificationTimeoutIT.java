@@ -26,6 +26,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.Duration;
 
+import org.hamcrest.Matchers;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -58,7 +60,7 @@ class NotificationTimeoutIT {
 
     static {
         wireMockServer = new WireMockServer(
-                WireMockConfiguration.wireMockConfig().dynamicPort()
+                WireMockConfiguration.wireMockConfig().dynamicPort().http2PlainDisabled(true)
         );
         wireMockServer.start();
     }
@@ -157,7 +159,7 @@ class NotificationTimeoutIT {
         .then()
             // Kulcspont: 201 Created! A timeout nem töri meg a task létrehozást.
             .statusCode(201)
-            .body("title", equalTo("Timeout test task"));
+            .body("title", Matchers.equalTo("Timeout test task"));
 
         long elapsed = System.currentTimeMillis() - startTime;
 

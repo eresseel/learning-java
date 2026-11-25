@@ -11,7 +11,7 @@
 
 ## `WireMockExtension`
 
-JUnit 5 kiegészítő: a teszt előtt elindítja a mock szervert, utána leállítja, és minden teszt után törli a stubokat. A `dynamicPort()` szabad portot választ, így nem ütközik más futó szolgáltatással.
+JUnit kiegészítő: a teszt előtt elindítja a mock szervert, utána leállítja, és minden teszt után törli a stubokat. A `dynamicPort()` szabad portot választ, így nem ütközik más futó szolgáltatással.
 
 ```java
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
